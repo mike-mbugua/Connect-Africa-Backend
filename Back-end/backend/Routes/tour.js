@@ -2,16 +2,17 @@ import express from "express";
 import  {createTour, deleteTour, getAllTours, getFeaturedTours, getSingleTour, getTourBySearch, getTourCount, updateTour} from "../controllers/tourController.js";
 const router =express.Router();
 
+import { verifyAdmin } from "../utilis/verifyToken.js";
 // ROUTES 
 
 // to create new tour
-router.post('/',createTour)
+router.post('/',verifyAdmin,createTour)
 
 // update tour
-router.put('/:id',updateTour)
+router.put('/:id',verifyAdmin,updateTour)
 
 // Delete tour
-router.delete('/:id',deleteTour)
+router.delete('/:id',verifyAdmin,deleteTour)
 
 // get single tour
 router.get('/:id',getSingleTour)
