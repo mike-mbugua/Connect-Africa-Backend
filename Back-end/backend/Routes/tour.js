@@ -2,7 +2,7 @@ import express from "express";
 import  {createTour, deleteTour, getAllTours, getFeaturedTours, getSingleTour, getTourBySearch, getTourCount, updateTour} from "../controllers/tourController.js";
 const router =express.Router();
 
-// ROUTES FOR
+// ROUTES 
 
 // to create new tour
 router.post('/',createTour)

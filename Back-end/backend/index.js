@@ -4,6 +4,7 @@ import mongoose, { connect } from 'mongoose'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import tourRoute from './Routes/tour.js'
+import userRoute from './Routes/user.js'
 
 dotenv.config()
 const app = express()
@@ -41,6 +42,7 @@ app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
 app.use('/tours',tourRoute)
+app.use('/users',userRoute)
 
 app.listen(port,()=>{
     console.log("Server Listening to port:", port)
