@@ -79,3 +79,47 @@ export const getAllTours= async(req,res)=>{
         res.status(404).json({success:false,message:"Not Found"})
     }
 }
+// get tour by search
+export const getTourBySearch = async (req,res)=>{
+
+    // i in this is for case sensitivity
+    const title= new RegExp(req.query.title, 'i')
+    const distance = parseInt(req.query.distance)
+    const price = parseInt(req.query.price);
+
+    try {
+        
+        const tours= await Tour.find({title,distance:{$gte:distance},price:{$gte:price}})
+
+        res.status(200).json({success:true, message:"Found",data:tours})
+
+    } catch (err) {
+        res.status(404).json({success:false,message:"No tour found based on the search"})
+    }
+
+}
+
+export const getFeaturedTours= async(req,res)=>{
+
+
+
+    try {
+        const tours=await Tour.find({featured:true}).limit(8)
+        res.status(200).json({success:true, count:tours.length,message:"Tours Found",data:tours})
+    } catch (err) {
+        res.status(404).json({success:false,message:"Not Found"})
+    }
+}
+// get Tour counts
+
+export const getTourCount= async(req,res)=>{
+
+    try {
+        
+        const tourCount= await Tour.estimatedDocumentCount();
+        res.status(200).json({success:true,message:`All added tours are ${tourCount}`,data:tourCount})
+
+    } catch (err) {
+        res.status(500).json({success:false,message:" failed to fetch"})
+    }
+}
